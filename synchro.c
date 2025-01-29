@@ -28,7 +28,6 @@ int	all_philos_running(pthread_mutex_t *mutex, long *philos, long philo_nbr)
 	if (*philos == philo_nbr)
 		ret = 1;
 	safe_mutex_handle(mutex, UNLOCK);
-	//printf("retorno da all philos %d\n", ret);
 	return (ret);
 }
 

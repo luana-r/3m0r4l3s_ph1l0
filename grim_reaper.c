@@ -40,9 +40,10 @@ void	*check_dinner(void *data) //1:41 ele não declara, mas puxa do ponteiro voi
 		;
 	while (!simulation_end(table))
 	{
-		i = 0;
-		while (i++ < table->philo_nbr && !simulation_end(table))
+		i = -1;
+		while (++i < table->philo_nbr && !simulation_end(table))
 		{
+
 			if (philo_died(table->philos + i)) //1:43
 			{
 				set_int(&table->table_mutex, &table->end, 1);

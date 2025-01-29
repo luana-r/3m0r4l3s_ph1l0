@@ -23,17 +23,14 @@ int	get_int(pthread_mutex_t *mutex, int *value)
 {
 	int	ret;
 
-	//printf("get int rodando - value: %d\n", *value);
 	safe_mutex_handle(mutex, LOCK);
 	ret = *value;
 	safe_mutex_handle(mutex, UNLOCK);
-	//printf("retorno da get int %d\n", ret);
 	return (ret);
 }
 
 void	set_long(pthread_mutex_t *mutex, long *dest, long value)
 {
-	printf("dentro da set long \n");
 	safe_mutex_handle(mutex, LOCK);
 	*dest = value;
 	safe_mutex_handle(mutex, UNLOCK);

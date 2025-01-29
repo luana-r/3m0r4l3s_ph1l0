@@ -45,8 +45,8 @@ void	handle_mutex_errors(int status, t_mcode mcode)
 
 void	safe_mutex_handle(pthread_mutex_t *mutex, t_mcode mcode)
 {
-	printf("Código da safe_mutex %u\n", mcode);
-	//printf("MUTEX %p\n", (void *)mutex);
+	// printf("Código da safe_mutex %u\n", mcode);
+	// //printf("MUTEX %p\n", (void *)mutex);
 	if (mcode == LOCK)
 		handle_mutex_errors(pthread_mutex_lock(mutex), mcode);
 	else if (mcode == UNLOCK)

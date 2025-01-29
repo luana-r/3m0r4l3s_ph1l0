@@ -31,9 +31,7 @@ const char	*validate_input(const char *arg)
 	// int			len;
 	const char	*nbr;
 
-	// len = 0;
-	//printf("char passado para validate: %s\n", arg);
-	while (is_space(*arg)) //pular espaços
+	while (is_space(*arg))
 		arg++;
 	if (*arg == '+')
 		arg++;

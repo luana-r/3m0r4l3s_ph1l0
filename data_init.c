@@ -32,7 +32,6 @@ void	philo_init(t_table *table)
 	t_philo	*philo;
 
 	i = 0;
-	printf("entrei no philo_init\n");
 	while (i < table->philo_nbr)
 	{
 		philo = table->philos + i;
@@ -40,37 +39,29 @@ void	philo_init(t_table *table)
 		philo->max_meal = 0;
 		philo->meal_counter = 0;
 		philo->table = table;
-		printf("philo_mutex ");
 		safe_mutex_handle(&philo->philo_mutex, INIT);
 		assign_forks(philo, table->forks, i);
 		i++;
 	}
-	printf("conclui no philo_init\n");
 }
 
 void	data_init(t_table *table)
 {
 	int	i;
 
-	//printf("entrei no data_init\n");
 	table->end = 0;
 	table->everybody_ready = 0;
 	table->philos_running_nbr = 0;
 	table->philos = safe_malloc(sizeof(t_philo) * table->philo_nbr);
 	table->forks = safe_malloc(sizeof(t_fork) * table->philo_nbr);
-	printf("table_mutex ");
 	safe_mutex_handle(&table->table_mutex, INIT);
-	printf("write_mutex ");
 	safe_mutex_handle(&table->write_mutex, INIT);
-	printf("mutexes iniciados\n");
 	i = 0;
 	while (i < table->philo_nbr)
 	{
-		printf("fork_mutex ");
 		safe_mutex_handle(&table->forks[i].fork, INIT);
 		table->forks[i].fork_id = i;
-		i++;
-		//printf("mutex bem sucedido\n");
+		i++;	
 	}
 	//printf("entrando no philo_init\n");
 	philo_init(table);

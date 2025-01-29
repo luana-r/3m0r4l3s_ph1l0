@@ -16,15 +16,10 @@ void	*lone_philosopher(void *data)
 {
 	t_philo	*philo;
 
-	printf("entrei na lone_philo\n");
 	philo = (t_philo *)data;
-	printf("entrando na set long\n");
-	set_long(&philo->philo_mutex, &philo->last_meal_time, gettime(MILLISECOND));
-	printf("set long ok\n");
+	set_long(&(philo->philo_mutex), &philo->last_meal_time, gettime(MILLISECOND));
 	increase_long(&philo->table->table_mutex, &philo->table->philos_running_nbr);
-	//printf("increase long ok\n");
 	write_status(TAKE_FIRST_FORK, philo, DEBUG_MODE);
-	//printf("write status first fork ok\n");
 	while (!simulation_end(philo->table))
 		usleep(100);
 	return (NULL);
@@ -94,12 +89,13 @@ void	start_simulation(t_table *table)
 	t_philo	*first_philo;
 
 	i = -1;
+	table->time_start = gettime(MILLISECOND);
 	if (table->limit_meal == 0)
 		return ;
 	else if (table->philo_nbr == 1)
 	{
 		first_philo = &table->philos[0];
-		safe_thread_handle(&first_philo->thread_id, lone_philosopher, &first_philo, CREATE);
+		safe_thread_handle(&first_philo->thread_id, lone_philosopher, first_philo, CREATE);
 	}
 	else
 	{
@@ -107,10 +103,9 @@ void	start_simulation(t_table *table)
 			safe_thread_handle(&table->philos[i].thread_id, dinner, &table->philos[i], CREATE);
 	}
 	safe_thread_handle(&table->grim_reaper, check_dinner, table, CREATE);
-	table->time_start = gettime(MILLISECOND);
 	set_int(&table->table_mutex, &table->everybody_ready, 1);
-	i = 0;
-	while (i++ < table->philo_nbr)
+	i = -1;
+	while (++i < table->philo_nbr)
 		safe_thread_handle(&table->philos[i].thread_id, NULL, NULL, JOIN);
 	set_int(&table->table_mutex, &table->end, 1);
 	safe_thread_handle(&table->grim_reaper, NULL, NULL, JOIN); //1:51:29

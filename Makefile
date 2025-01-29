@@ -13,7 +13,7 @@
 NAME = philo
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -I includes
+CFLAGS = -Wall -Wextra -Werror -pthread -I includes
 RM = rm -f
 
 SRCS_DIR = srcs
@@ -27,8 +27,10 @@ $(OBJS_DIR)/%.o: %.c $(HEADER)
 		@mkdir -p $(OBJS_DIR)
 		$(CC) $(CFLAGS) -c -o $@ $<
 
+all: $(NAME)
+
 $(NAME): $(OBJS)
-		$(CC) $(CFLAGS) -o $(NAME) $(OBJS) -pthread
+		$(CC) $(CFLAGS) -o $(NAME) $(OBJS) 
 
 clean:
 		$(RM) -r $(OBJS_DIR)
