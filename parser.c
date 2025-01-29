@@ -28,10 +28,10 @@ int	is_digit(char c)
 
 const char	*validate_input(const char *arg)
 {
-	int			len;
+	// int			len;
 	const char	*nbr;
 
-	len = 0;
+	// len = 0;
 	//printf("char passado para validate: %s\n", arg);
 	while (is_space(*arg)) //pular espaços
 		arg++;

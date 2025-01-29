@@ -13,29 +13,17 @@
 NAME = philo
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -Iincludes
-AR = ar rcs
+CFLAGS = -Wall -Wextra -Werror -I includes
 RM = rm -f
 
-SRCS_DIR = srcs/
-OBJS_DIR = obj/
-HEADER = includes/philo.h
+SRCS_DIR = srcs
+OBJS_DIR = obj
+HEADER = philo.h
 
-FILES = data_init \
-		dinner \
-		getters_setters \
-		grim_reaper \
-		main \
-		parser \
-		safe_functions \
-		synchro \
-		utils \
-		write
+SRCS = $(shell find . -type f -name "*.c")
+OBJS = $(SRCS:%.c=$(OBJS_DIR)/%.o)
 
-SRCS = $(addprefix $(SRCS_DIR), $(addsuffix .c, $(FILES)))
-OBJS = $(addprefix $(OBJS_DIR), $(addsuffix .o, $(FILES)))
-
-$(OBJS_DIR)%.o: $(SRCS_DIR)%.c $(HEADER)
+$(OBJS_DIR)/%.o: %.c $(HEADER)
 		@mkdir -p $(OBJS_DIR)
 		$(CC) $(CFLAGS) -c -o $@ $<
 
